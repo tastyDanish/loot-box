@@ -11,7 +11,7 @@ function App() {
   const [chestOpen, setChestOpen] = useState(false);
   const [showRoulette, setShowRoulette] = useState(false);
 
-  const { items, addItem, removeItem, editItem } = useItems();
+  const { items, addItem, removeItem, editItem, isEmpty } = useItems();
 
   useEffect(() => {
     if (chestOpen) {
@@ -34,7 +34,7 @@ function App() {
   return (
     <div className="w-full bg-slate-300 flex flex-col items-center gap-2 max-h-screen min-h-screen overflow-hidden">
       <div className="text-4xl font-extrabold flex-min-w-screen justify-center absolute pt-20 text-center">
-        {items.length > 1 ? "Open your chest!" : "Create your Chest!"}
+        {isEmpty ? "Create your Chest!" : "Open your chest!"}
       </div>
       <div className="flex min-w-screen justify-center absolute">
         {showRoulette && (
@@ -49,13 +49,14 @@ function App() {
         <OpenBoxButton
           open={chestOpen}
           count={items.length}
+          isEmpty={isEmpty}
           handleClick={() => setChestOpen(!chestOpen)}
         />
       </div>
 
       <SidebarProvider>
         <div className="w-full flex h-full justify-end relative pt-4 pr-2">
-          <EditLootboxButton emptyBox={items.length < 2} />
+          <EditLootboxButton emptyBox={isEmpty} />
         </div>
         <AppSidebar
           addItem={addItem}

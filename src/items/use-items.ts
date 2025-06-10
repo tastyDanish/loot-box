@@ -41,10 +41,13 @@ export function useItems() {
     };
   };
 
+  const isEmpty = items.length < 1;
+
   return {
     items,
     addItem,
     removeItem,
     editItem,
+    isEmpty,
   };
 }

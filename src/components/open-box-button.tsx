@@ -5,6 +5,7 @@ type OpenBoxButtonProps = {
   count: number;
   handleClick: () => void;
   open: boolean;
+  isEmpty: boolean;
 };
 
 const getShakeAnimation = (count: number, open: boolean) => {
@@ -47,7 +48,12 @@ const getShakeAnimation = (count: number, open: boolean) => {
   };
 };
 
-const OpenBoxButton = ({ handleClick, count, open }: OpenBoxButtonProps) => {
+const OpenBoxButton = ({
+  handleClick,
+  count,
+  open,
+  isEmpty,
+}: OpenBoxButtonProps) => {
   return (
     <div className="flex flex-col justify-center h-screen">
       <AnimatePresence mode="sync">
@@ -66,7 +72,7 @@ const OpenBoxButton = ({ handleClick, count, open }: OpenBoxButtonProps) => {
       </AnimatePresence>
 
       <div className="relative w-fit mx-auto">
-        {count < 2 && (
+        {isEmpty && (
           <div className="absolute text-2xl inset-0 flex items-center justify-center z-20 pointer-events-none text-black text-center font-bold -mt-[60px">
             <div className="relative z-10 p-10  text-gray-700 bg-slate-200 rounded mask-b-from-50% mask-radial-[50%_90%] mask-radial-from-80% mask-t-from-50%">
               Add some loot to your chest!
@@ -75,7 +81,7 @@ const OpenBoxButton = ({ handleClick, count, open }: OpenBoxButtonProps) => {
         )}
 
         <Button
-          disabled={count < 2}
+          disabled={isEmpty}
           onClick={() => {
             if (!open) handleClick();
           }}
