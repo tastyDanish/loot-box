@@ -83,8 +83,7 @@ export const ItemRoulette = ({ items, setWinner }: ChooseItemProps) => {
             key={i}
             className="flex h-24 w-48 shrink-0 items-center justify-center overflow-hidden rounded bg-orange-50 p-2 text-center text-xs font-bold shadow sm:w-64">
             <p className="overflow-hidden break-words text-ellipsis whitespace-normal">
-              {label}
-              {/* {i} */}
+              {label} {i}
             </p>
           </div>
         ))}
