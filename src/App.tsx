@@ -41,7 +41,7 @@ function App() {
         </AnimatePresence>
       )}
 
-      <div className="fixed right-0 bottom-0 left-0 flex h-screen min-w-screen">
+      <div className="fixed right-0 bottom-0 left-0 flex h-dvh min-w-screen">
         <OpenBoxButton
           setShowText={setShowText}
           items={items}
