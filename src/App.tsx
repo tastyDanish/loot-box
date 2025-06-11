@@ -4,9 +4,14 @@ import OpenBoxButton from "./components/open-box-button";
 import { SidebarProvider } from "./components/ui/sidebar";
 import AppSidebar from "./components/app-sidebar";
 import EditLootboxButton from "./components/edit-lootbox-button";
+import { useState } from "react";
+import { AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
+
 // import SaveLoadBar from "./components/save-load-bar";
 
 function App() {
+  const [showText, setShowText] = useState(true);
   const {
     items,
     addItem,
@@ -20,16 +25,25 @@ function App() {
 
   return (
     <div className="flex max-h-screen min-h-screen w-full flex-col items-center gap-2 overflow-hidden bg-linear-to-t from-slate-500 from-0% via-slate-400 via-30% to-blue-200 to-100%">
-      <section className="flex-min-w-screen absolute justify-center pt-6 text-center font-extrabold">
-        <h1>{isEmpty ? "Create your Chest!" : "Open your chest!"}</h1>
-        <p className="max-w-120 p-5">
-          A free lootbox to help you choose something randomly for a true sense
-          of pride and accomplishment
-        </p>
-      </section>
+      {showText && (
+        <AnimatePresence mode="popLayout">
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex-min-w-screen absolute justify-center pt-6 text-center font-extrabold">
+            <h1>{isEmpty ? "Create your Chest!" : "Open your chest!"}</h1>
+            <p className="max-w-120 p-5">
+              A free lootbox to help you choose something randomly for a true
+              sense of pride and accomplishment
+            </p>
+          </motion.section>
+        </AnimatePresence>
+      )}
 
       <div className="fixed right-0 bottom-0 left-0 flex h-screen min-w-screen">
         <OpenBoxButton
+          setShowText={setShowText}
           items={items}
           removeItem={removeItem}
         />

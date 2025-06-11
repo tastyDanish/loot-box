@@ -47,14 +47,20 @@ const getShakeAnimation = (count: number, open: boolean) => {
 type OpenBoxButtonProps = {
   items: string[];
   removeItem: (index: number) => void;
+  setShowText: (show: boolean) => void;
 };
 
-const OpenBoxButton = ({ items, removeItem }: OpenBoxButtonProps) => {
+const OpenBoxButton = ({
+  items,
+  removeItem,
+  setShowText,
+}: OpenBoxButtonProps) => {
   const [chestOpen, setChestOpen] = useState(false);
   const [showRoulette, setShowRoulette] = useState(false);
   const [winner, setWinner] = useState<Winner | null>();
 
   const onWinnerClose = () => {
+    setShowText(true);
     setWinner(null);
     setChestOpen(false);
     setShowRoulette(false);
@@ -92,6 +98,7 @@ const OpenBoxButton = ({ items, removeItem }: OpenBoxButtonProps) => {
             if (!chestOpen) {
               setChestOpen(true);
               setShowRoulette(true);
+              setShowText(false);
             }
           }}
           variant="ghost"
