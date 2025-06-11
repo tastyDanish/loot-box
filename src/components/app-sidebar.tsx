@@ -1,6 +1,5 @@
 import { AddItemForm } from "./add-item-form";
 import ItemCard from "./item-card";
-import { Input } from "./ui/input";
 import { Sidebar, SidebarContent, SidebarHeader } from "./ui/sidebar";
 
 type AppSidebarProps = {
@@ -17,8 +16,6 @@ const AppSidebar = ({
   editItem,
   items,
   removeItem,
-  title,
-  setTitle,
 }: AppSidebarProps) => {
   return (
     <Sidebar
@@ -26,10 +23,6 @@ const AppSidebar = ({
       variant="floating">
       <SidebarHeader />
       <SidebarContent className="flex flex-col gap-4 p-2 pt-0">
-        {/* <Input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        /> */}
         <AddItemForm onAdd={addItem} />
         <div className="scroll-thin flex w-full grow flex-col gap-2 overflow-y-auto">
           {items.map((item, i) => (
