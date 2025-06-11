@@ -1,11 +1,9 @@
 import "./App.css";
 import { useItems } from "./items/use-items";
-import { useEffect, useState } from "react";
 import OpenBoxButton from "./components/open-box-button";
 import { SidebarProvider } from "./components/ui/sidebar";
 import AppSidebar from "./components/app-sidebar";
 import EditLootboxButton from "./components/edit-lootbox-button";
-import { ItemRoulette } from "./components/item-roulette";
 // import SaveLoadBar from "./components/save-load-bar";
 
 function App() {

@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Button } from "./ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ItemRoulette, type Winner } from "./item-roulette";
 import WinnerPopup from "./item-roulette/winner-popup";
 
