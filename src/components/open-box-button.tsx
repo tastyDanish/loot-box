@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "motion/react";
 import { Button } from "./ui/button";
+import { useSidebar } from "./ui/sidebar";
 
 type OpenBoxButtonProps = {
   count: number;
@@ -55,7 +56,7 @@ const OpenBoxButton = ({
   isEmpty,
 }: OpenBoxButtonProps) => {
   return (
-    <div className="flex flex-col justify-center h-screen">
+    <div className="flex h-screen flex-col justify-center">
       <AnimatePresence mode="sync">
         {open && (
           <motion.div
@@ -71,30 +72,22 @@ const OpenBoxButton = ({
         )}
       </AnimatePresence>
 
-      <div className="relative w-fit mx-auto">
-        {isEmpty && (
-          <div className="absolute text-2xl inset-0 flex items-center justify-center z-20 pointer-events-none text-black text-center font-bold -mt-[60px">
-            <div className="relative z-10 p-10  text-gray-700 bg-slate-200 rounded mask-b-from-50% mask-radial-[50%_90%] mask-radial-from-80% mask-t-from-50%">
-              Add some loot to your chest!
-            </div>
-          </div>
-        )}
-
+      <div className="relative mx-auto w-fit">
         <Button
           disabled={isEmpty}
           onClick={() => {
             if (!open) handleClick();
           }}
           variant="ghost"
-          className="relative h-fit p-0 hover:bg-transparent active:bg-transparent focus:ring-0 focus:outline-none cursor-pointer  md:-mt-[200px]">
+          className="relative h-fit cursor-pointer p-0 hover:bg-transparent focus:ring-0 focus:outline-none active:bg-transparent md:-mt-[200px]">
           <img
             src="/shadow.png"
-            className="max-h-100 absolute z-0"
+            className="absolute z-0 max-h-100"
             alt="Shadow"
           />
 
           <motion.div
-            className="inline-block relative z-10"
+            className="relative inline-block"
             animate={open ? { rotate: 0 } : getShakeAnimation(count, open)}
             key={count}>
             <img

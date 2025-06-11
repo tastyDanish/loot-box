@@ -6,6 +6,7 @@ import { SidebarProvider } from "./components/ui/sidebar";
 import AppSidebar from "./components/app-sidebar";
 import EditLootboxButton from "./components/edit-lootbox-button";
 import { ItemRoulette } from "./components/item-roulette";
+import SaveLoadBar from "./components/save-load-bar";
 
 function App() {
   const [chestOpen, setChestOpen] = useState(false);
@@ -32,11 +33,15 @@ function App() {
   }, [showRoulette]);
 
   return (
-    <div className="w-full bg-slate-300 flex flex-col items-center gap-2 max-h-screen min-h-screen overflow-hidden">
-      <div className="text-4xl font-extrabold flex-min-w-screen justify-center absolute pt-20 text-center">
-        {isEmpty ? "Create your Chest!" : "Open your chest!"}
-      </div>
-      <div className="flex min-w-screen justify-center absolute">
+    <div className="flex max-h-screen min-h-screen w-full flex-col items-center gap-2 overflow-hidden bg-slate-300">
+      <section className="flex-min-w-screen absolute justify-center pt-6 text-center font-extrabold">
+        <h1>{isEmpty ? "Create your Chest!" : "Open your chest!"}</h1>
+        <p className="pt-2">
+          {isEmpty ? "Add some loot to your chest!" : "And see what you got!"}
+        </p>
+      </section>
+
+      <div className="absolute flex min-w-screen justify-center">
         {showRoulette && (
           <ItemRoulette
             items={items}
@@ -55,7 +60,8 @@ function App() {
       </div>
 
       <SidebarProvider>
-        <div className="w-full flex h-full justify-end relative pt-4 pr-2">
+        <div className="relative flex h-full w-full justify-end pt-2 pr-2">
+          <SaveLoadBar />
           <EditLootboxButton emptyBox={isEmpty} />
         </div>
         <AppSidebar

@@ -32,7 +32,7 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
     return { boxes, winner };
   }, [items]);
 
-  const boxWidth = 140; // Tailwind w-24 + border
+  const boxWidth = 140;
   const gap = 8; // Tailwind gap-2
 
   const centerOffset =
@@ -49,13 +49,9 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
     "break-words overflow-hidden text-ellipsis whitespace-normal";
 
   return (
-    <div className="absolute w-full h-[500px] flex flex-col overflow-x-hidden overflow-y-visible z-30 justify-center">
-      <div className="bg-slate-400 w-full flex flex-col absolute h-[180px] mb-[10px]" />
-      <motion.div
-        // animate={{ opacity: 0 }}
-        // transition={{ delay: delay + duration, duration: 0.1 }}
-        className="bg-slate-500 w-1 h-11 self-center -mb-10 z-10 mt-2"
-      />
+    <div className="absolute z-30 flex h-[500px] w-full flex-col justify-center overflow-x-hidden overflow-y-visible">
+      <div className="absolute mb-[10px] flex h-[180px] w-full flex-col bg-slate-400" />
+      <div className="z-10 mt-2 -mb-10 h-11 w-1 self-center bg-slate-500" />
       <motion.div
         className="flex gap-2 py-2"
         initial={{ x: window.innerWidth }}
@@ -74,10 +70,10 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
         ))}
       </motion.div>
 
-      <div className="w-full absolute h-[200px] z-40 clip-circle" />
-      <div className="absolute flex justify-center w-full z-50 top-20">
+      <div className="clip-circle absolute z-40 h-[200px] w-full" />
+      <div className="absolute top-20 z-50 flex w-full justify-center">
         <motion.div
-          className="w-96 h-70 shrink-0 bg-slate-200 items-center justify-center text-xs font-bold text-center rounded shadow-md p-2  overflow-hidden flex flex-col"
+          className="flex h-70 w-96 max-w-screen shrink-0 flex-col items-center justify-center overflow-hidden rounded bg-slate-200 p-2 text-center text-xs font-bold shadow-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: delay + duration + 0.1 }}
@@ -91,8 +87,8 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
             });
             setAnimationDone(true);
           }}>
-          <div className="grow flex flex-col justify-center">
-            <p className="break-words overflow-hidden text-ellipsis whitespace-normal text-3xl text-center">
+          <div className="flex grow flex-col justify-center">
+            <p className="overflow-hidden text-center text-3xl break-words text-ellipsis whitespace-normal">
               {items[winner]}
             </p>
           </div>
