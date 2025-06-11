@@ -32,7 +32,7 @@ export const ItemRoulette = ({ items, setWinner }: ChooseItemProps) => {
     return { boxes, winner };
   }, [items]);
 
-  const actualHeight = window.innerHeight - (isTiny ? 20 : 100);
+  const actualHeight = window.innerHeight - (isTiny ? 50 : 100);
 
   // height + padding * 2
   const boxHeight = 80 + 8 * 2;
