@@ -63,7 +63,7 @@ function App() {
         </div>
       )}
 
-      <div className="absolute bottom-0 flex min-w-screen justify-center pb-10">
+      <div className="fixed right-0 bottom-0 left-0 flex min-w-screen justify-center pb-10">
         <OpenBoxButton
           open={chestOpen}
           count={items.length}
