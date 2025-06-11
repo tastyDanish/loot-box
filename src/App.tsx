@@ -32,7 +32,7 @@ function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="flex-min-w-screen absolute justify-center pt-6 text-center font-extrabold">
-            <h1>{isEmpty ? "Create your Chest!" : "Open your chest!"}</h1>
+            <h1>{isEmpty ? "Create your Loot Box!" : "Open your Loot Box!"}</h1>
             <p className="max-w-120 p-5">
               A free lootbox to help you choose something randomly for a true
               sense of pride and accomplishment
