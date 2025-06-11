@@ -24,7 +24,7 @@ function App() {
   } = useItems();
 
   return (
-    <div className="flex max-h-screen min-h-screen w-full flex-col items-center gap-2 overflow-hidden bg-linear-to-t from-slate-500 from-0% via-slate-400 via-30% to-blue-200 to-100%">
+    <div className="flex max-h-dvh min-h-dvh w-full flex-col items-center gap-2 overflow-hidden bg-linear-to-t from-slate-500 from-0% via-slate-400 via-30% to-blue-200 to-100%">
       {showText && (
         <AnimatePresence mode="popLayout">
           <motion.section
