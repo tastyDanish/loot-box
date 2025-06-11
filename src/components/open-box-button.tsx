@@ -57,7 +57,7 @@ const OpenBoxButton = ({
 }: OpenBoxButtonProps) => {
   return (
     <div className="flex h-screen flex-col justify-center">
-      <AnimatePresence mode="sync">
+      {/* <AnimatePresence mode="sync">
         {open && (
           <motion.div
             key="loot-space"
@@ -70,7 +70,7 @@ const OpenBoxButton = ({
             transition={{ duration: 0.7, ease: "easeOut" }}
           />
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       <div className="relative mx-auto w-fit">
         <Button
@@ -79,7 +79,7 @@ const OpenBoxButton = ({
             if (!open) handleClick();
           }}
           variant="ghost"
-          className="relative h-fit cursor-pointer p-0 hover:bg-transparent focus:ring-0 focus:outline-none active:bg-transparent md:-mt-[200px]">
+          className="relative mt-60 h-fit cursor-pointer p-0 hover:bg-transparent focus:ring-0 focus:outline-none active:bg-transparent">
           <img
             src="/shadow.png"
             className="absolute z-0 max-h-100"

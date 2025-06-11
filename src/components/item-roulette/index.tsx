@@ -44,7 +44,7 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
   const delay = 0.2 + Math.random() * 0.3;
 
   const baseClass =
-    "w-[140px] h-24 shrink-0 bg-slate-200  flex items-center justify-center text-xs font-bold shadow text-center rounded p-2  overflow-hidden";
+    "w-[140px] h-24 shrink-0 bg-orange-50  flex items-center justify-center text-xs font-bold shadow text-center rounded p-2  overflow-hidden";
   const textClass =
     "break-words overflow-hidden text-ellipsis whitespace-normal";
 
@@ -73,7 +73,7 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
       <div className="clip-circle absolute z-40 h-[200px] w-full" />
       <div className="absolute top-20 z-50 flex w-full justify-center">
         <motion.div
-          className="flex h-70 w-96 max-w-screen shrink-0 flex-col items-center justify-center overflow-hidden rounded bg-slate-200 p-2 text-center text-xs font-bold shadow-md"
+          className="flex h-70 w-96 max-w-screen shrink-0 flex-col items-center justify-center overflow-hidden rounded bg-orange-50 p-2 text-center text-xs font-bold shadow-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: delay + duration + 0.1 }}

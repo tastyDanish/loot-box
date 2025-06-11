@@ -1,5 +1,6 @@
 import { AddItemForm } from "./add-item-form";
 import ItemCard from "./item-card";
+import { Input } from "./ui/input";
 import { Sidebar, SidebarContent, SidebarHeader } from "./ui/sidebar";
 
 type AppSidebarProps = {
@@ -7,6 +8,8 @@ type AppSidebarProps = {
   items: string[];
   editItem: (index: number) => (newValue: string) => void;
   removeItem: (index: number) => void;
+  title: string;
+  setTitle: (newTitle: string) => void;
 };
 
 const AppSidebar = ({
@@ -14,15 +17,21 @@ const AppSidebar = ({
   editItem,
   items,
   removeItem,
+  title,
+  setTitle,
 }: AppSidebarProps) => {
   return (
     <Sidebar
       side="right"
       variant="floating">
       <SidebarHeader />
-      <SidebarContent className="p-2 pt-0 flex gap-4 flex-col">
+      <SidebarContent className="flex flex-col gap-4 p-2 pt-0">
+        <Input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <AddItemForm onAdd={addItem} />
-        <div className="grow w-full overflow-y-auto scroll-thin flex flex-col gap-2">
+        <div className="scroll-thin flex w-full grow flex-col gap-2 overflow-y-auto">
           {items.map((item, i) => (
             <ItemCard
               key={i}

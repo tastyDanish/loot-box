@@ -2,22 +2,37 @@ import { useCallback, useEffect, useState } from "react";
 
 const STORAGE_KEY = "random-choice-items";
 
-const getInitialItems = (): string[] => {
+const DEFAULT_TITLE = "New Chest";
+
+const getInitialItems = (): LootBox => {
+  const stored = localStorage.getItem(STORAGE_KEY);
+
+  if (!stored) {
+    return { title: DEFAULT_TITLE, items: [] };
+  }
+
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    const parsed = JSON.parse(stored);
+    return parsed as LootBox;
   } catch (e) {
     console.error("Failed to parse localStorage items:", e);
-    return [];
+    return { title: DEFAULT_TITLE, items: [] };
   }
 };
 
+export type LootBox = {
+  title: string;
+  items: string[];
+};
+
 export function useItems() {
-  const [items, setItems] = useState<string[]>(getInitialItems);
+  const initial = getInitialItems();
+  const [items, setItems] = useState<string[]>(initial.items);
+  const [title, setTitle] = useState<string>(initial.title);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ title, items }));
+  }, [title, items]);
 
   const addItem = (item: string) => {
     const trimmed = item.trim();
@@ -45,9 +60,12 @@ export function useItems() {
 
   return {
     items,
+    setItems,
     addItem,
     removeItem,
     editItem,
     isEmpty,
+    title,
+    setTitle,
   };
 }

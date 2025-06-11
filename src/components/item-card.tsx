@@ -26,8 +26,8 @@ const ItemCard = ({ item, onRemove, editItem }: ItemCardProps) => {
     }
   };
   return (
-    <div className="w-full flex flex-col items-center gap-2">
-      <div className="w-[200px] flex justify-between gap-2">
+    <div className="flex w-full flex-col items-center gap-2">
+      <div className="flex justify-between gap-2">
         <Input
           value={value}
           onBlur={handleBlur}

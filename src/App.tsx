@@ -12,7 +12,16 @@ function App() {
   const [chestOpen, setChestOpen] = useState(false);
   const [showRoulette, setShowRoulette] = useState(false);
 
-  const { items, addItem, removeItem, editItem, isEmpty } = useItems();
+  const {
+    items,
+    addItem,
+    removeItem,
+    editItem,
+    isEmpty,
+    setItems,
+    title,
+    setTitle,
+  } = useItems();
 
   useEffect(() => {
     if (chestOpen) {
@@ -33,11 +42,12 @@ function App() {
   }, [showRoulette]);
 
   return (
-    <div className="flex max-h-screen min-h-screen w-full flex-col items-center gap-2 overflow-hidden bg-slate-300">
+    <div className="flex max-h-screen min-h-screen w-full flex-col items-center gap-2 overflow-hidden bg-linear-to-t from-slate-500 from-0% via-slate-400 via-30% to-blue-200 to-100%">
       <section className="flex-min-w-screen absolute justify-center pt-6 text-center font-extrabold">
         <h1>{isEmpty ? "Create your Chest!" : "Open your chest!"}</h1>
-        <p className="pt-2">
-          {isEmpty ? "Add some loot to your chest!" : "And see what you got!"}
+        <p className="max-w-120 p-5">
+          A free lootbox to help you choose something randomly for a true sense
+          of pride and accomplishment
         </p>
       </section>
 
@@ -60,11 +70,16 @@ function App() {
       </div>
 
       <SidebarProvider>
-        <div className="relative flex h-full w-full justify-end pt-2 pr-2">
-          <SaveLoadBar />
+        <div className="relative flex h-full w-full justify-end gap-1 pt-2 pr-2">
+          <SaveLoadBar
+            box={{ title, items }}
+            setItems={setItems}
+          />
           <EditLootboxButton emptyBox={isEmpty} />
         </div>
         <AppSidebar
+          title={title}
+          setTitle={setTitle}
           addItem={addItem}
           removeItem={removeItem}
           editItem={editItem}
