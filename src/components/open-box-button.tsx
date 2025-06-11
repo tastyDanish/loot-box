@@ -55,7 +55,7 @@ const OpenBoxButton = ({
   isEmpty,
 }: OpenBoxButtonProps) => {
   return (
-    <div className="flex h-screen flex-col justify-center">
+    <div className="flex flex-col justify-center">
       <div className="relative mx-auto w-fit">
         <Button
           disabled={isEmpty}
@@ -63,7 +63,7 @@ const OpenBoxButton = ({
             if (!open) handleClick();
           }}
           variant="ghost"
-          className="relative mt-60 h-fit cursor-pointer p-0 hover:bg-transparent focus:ring-0 focus:outline-none active:bg-transparent">
+          className="relative h-fit cursor-pointer p-0 hover:bg-transparent focus:ring-0 focus:outline-none active:bg-transparent">
           <img
             src="/shadow.png"
             className="absolute z-0 max-h-100"

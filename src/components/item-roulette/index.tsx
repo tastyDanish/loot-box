@@ -41,7 +41,7 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
     Math.random() * boxWidth;
 
   const duration = 5 + Math.random();
-  const delay = 0.2 + Math.random() * 0.3;
+  const delay = 0.1 + Math.random() * 0.1;
 
   const baseClass =
     "w-[140px] h-24 shrink-0 bg-orange-50  flex items-center justify-center text-xs font-bold shadow text-center rounded p-2  overflow-hidden";
@@ -49,16 +49,16 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
     "break-words overflow-hidden text-ellipsis whitespace-normal";
 
   return (
-    <div className="absolute z-30 flex h-[500px] w-full flex-col justify-center overflow-x-hidden overflow-y-visible">
-      <div className="absolute mb-[10px] flex h-[180px] w-full flex-col bg-slate-400" />
-      <div className="z-10 mt-2 -mb-10 h-11 w-1 self-center bg-slate-500" />
+    <div className="relative z-30 flex h-[500px] w-full flex-col justify-center overflow-x-hidden overflow-y-visible">
+      <div className="absolute mb-[10px] flex h-[180px] w-full flex-col bg-slate-400 shadow-md" />
+      <div className="z-10 mt-2 -mb-10 h-11 w-1 self-center bg-slate-500 shadow-md" />
       <motion.div
         className="flex gap-2 py-2"
         initial={{ x: window.innerWidth }}
         animate={{ x: -centerOffset }}
         transition={{
           duration,
-          ease: [0.2, 0.2, 0, 1],
+          ease: [0.1, 0.1, 0, 1],
           delay,
         }}>
         {boxes.map((label, i) => (

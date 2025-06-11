@@ -26,10 +26,10 @@ const AppSidebar = ({
       variant="floating">
       <SidebarHeader />
       <SidebarContent className="flex flex-col gap-4 p-2 pt-0">
-        <Input
+        {/* <Input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-        />
+        /> */}
         <AddItemForm onAdd={addItem} />
         <div className="scroll-thin flex w-full grow flex-col gap-2 overflow-y-auto">
           {items.map((item, i) => (

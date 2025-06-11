@@ -51,8 +51,8 @@ function App() {
         </p>
       </section>
 
-      <div className="absolute flex min-w-screen justify-center">
-        {showRoulette && (
+      {showRoulette && (
+        <div className="absolute -mt-10 w-full md:mt-10">
           <ItemRoulette
             items={items}
             remove={removeItem}
@@ -60,7 +60,10 @@ function App() {
               setShowRoulette(false);
             }}
           />
-        )}
+        </div>
+      )}
+
+      <div className="absolute bottom-0 flex min-w-screen justify-center pb-10">
         <OpenBoxButton
           open={chestOpen}
           count={items.length}

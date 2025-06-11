@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const STORAGE_KEY = "random-choice-items";
 
-const DEFAULT_TITLE = "New Chest";
+const DEFAULT_TITLE = "loot-box";
 
 const getInitialItems = (): LootBox => {
   const stored = localStorage.getItem(STORAGE_KEY);
