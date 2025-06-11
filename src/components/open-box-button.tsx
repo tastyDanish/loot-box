@@ -104,7 +104,7 @@ const OpenBoxButton = ({
           variant="ghost"
           className="overlow-hidden relative cursor-pointer p-0 hover:bg-transparent focus:ring-0 focus:outline-none active:bg-transparent">
           <img
-            src={chestOpen ? "/shadow-open.png" : "/shadow-closed.png"}
+            src="/shadow.png"
             className="absolute -z-10 max-h-100"
             alt="Shadow"
           />
