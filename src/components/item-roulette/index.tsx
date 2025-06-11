@@ -40,7 +40,7 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
     window.innerWidth / 2 +
     Math.random() * boxWidth;
 
-  const duration = 5 + Math.random();
+  const duration = 7 + Math.random() * 3;
   const delay = 0.1 + Math.random() * 0.1;
 
   const baseClass =

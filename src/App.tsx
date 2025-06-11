@@ -6,7 +6,7 @@ import { SidebarProvider } from "./components/ui/sidebar";
 import AppSidebar from "./components/app-sidebar";
 import EditLootboxButton from "./components/edit-lootbox-button";
 import { ItemRoulette } from "./components/item-roulette";
-import SaveLoadBar from "./components/save-load-bar";
+// import SaveLoadBar from "./components/save-load-bar";
 
 function App() {
   const [chestOpen, setChestOpen] = useState(false);
@@ -18,7 +18,7 @@ function App() {
     removeItem,
     editItem,
     isEmpty,
-    setItems,
+    // setItems,
     title,
     setTitle,
   } = useItems();
@@ -74,10 +74,10 @@ function App() {
 
       <SidebarProvider>
         <div className="relative flex h-full w-full justify-end gap-1 pt-2 pr-2">
-          <SaveLoadBar
+          {/* <SaveLoadBar
             box={{ title, items }}
             setItems={setItems}
-          />
+          /> */}
           <EditLootboxButton emptyBox={isEmpty} />
         </div>
         <AppSidebar
