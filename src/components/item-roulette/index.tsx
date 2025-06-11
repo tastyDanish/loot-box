@@ -32,7 +32,7 @@ export const ItemRoulette = ({ items, setWinner }: ChooseItemProps) => {
     return { boxes, winner };
   }, [items]);
 
-  const actualHeight = window.innerHeight - (isTiny ? 50 : 100);
+  const actualHeight = window.innerHeight - 100;
 
   // height + padding * 2
   const boxHeight = 80 + 8 * 2;
@@ -65,7 +65,7 @@ export const ItemRoulette = ({ items, setWinner }: ChooseItemProps) => {
         duration: 0.3,
         ease: "easeInOut",
       }}
-      className="xs:h-[calc(100%-100px)] relative z-20 flex h-[calc(100%-50px)] w-[600px] justify-center overflow-x-visible overflow-y-hidden bg-orange-300/50">
+      className="relative z-20 flex h-[calc(100%-100px)] w-[600px] justify-center overflow-x-visible overflow-y-hidden bg-orange-300/50">
       <div className="absolute h-full w-[350px] bg-amber-300/40 [clip-path:polygon(10%_0%,_90%_0%,_80%_100%,_20%_100%)] sm:w-[400px] sm:[clip-path:polygon(0%_0%,_100%_0%,_80%_100%,_20%_100%)]" />
 
       <div className="z-10 -mr-10 h-10 w-20 self-center bg-slate-500 [clip-path:polygon(20%_20%,_100%_50%,_20%_80%,_0%_50%)]" />
