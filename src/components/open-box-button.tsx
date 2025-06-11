@@ -61,7 +61,7 @@ const OpenBoxButton = ({
           <motion.div
             key="loot-space"
             initial={{ height: 0 }}
-            animate={{ height: 200 }}
+            animate={{ height: 300 }}
             exit={{
               height: 0,
               transition: { duration: 0.3, ease: "easeIn" },
