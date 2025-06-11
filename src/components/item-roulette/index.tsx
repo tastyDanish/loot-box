@@ -42,7 +42,7 @@ export const ItemRoulette = ({ items, setWinner }: ChooseItemProps) => {
       (boxHeight + gap) * targetIndex -
       actualHeight / 2 +
       gap +
-      Math.random() * boxHeight +
+      // Math.random() * boxHeight +
       1,
     [items]
   );
