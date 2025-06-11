@@ -1,12 +1,8 @@
 import { motion } from "motion/react";
 import { Button } from "./ui/button";
-
-type OpenBoxButtonProps = {
-  count: number;
-  handleClick: () => void;
-  open: boolean;
-  isEmpty: boolean;
-};
+import { useEffect, useState } from "react";
+import { ItemRoulette, type Winner } from "./item-roulette";
+import WinnerPopup from "./item-roulette/winner-popup";
 
 const getShakeAnimation = (count: number, open: boolean) => {
   if (open) return {};
@@ -48,34 +44,79 @@ const getShakeAnimation = (count: number, open: boolean) => {
   };
 };
 
-const OpenBoxButton = ({
-  handleClick,
-  count,
-  open,
-  isEmpty,
-}: OpenBoxButtonProps) => {
+type OpenBoxButtonProps = {
+  items: string[];
+  removeItem: (index: number) => void;
+};
+
+const OpenBoxButton = ({ items, removeItem }: OpenBoxButtonProps) => {
+  const [chestOpen, setChestOpen] = useState(false);
+  const [showRoulette, setShowRoulette] = useState(false);
+  const [winner, setWinner] = useState<Winner | null>();
+
+  const onWinnerClose = () => {
+    setWinner(null);
+    setChestOpen(false);
+    setShowRoulette(false);
+  };
+
   return (
-    <div className="flex flex-col justify-center">
-      <div className="relative mx-auto w-fit">
+    <div className="flex h-full w-full flex-col justify-end">
+      {winner && (
+        <div className="absolute top-0 z-50 flex h-8/10 w-full flex-col items-center justify-center">
+          <WinnerPopup
+            winner={winner}
+            removeWinner={() => {
+              onWinnerClose();
+              removeItem(winner.index);
+            }}
+            closeDialog={() => {
+              onWinnerClose();
+            }}
+          />
+        </div>
+      )}
+      {showRoulette && (
+        <div className="absolute z-10 flex h-full w-full justify-center overflow-hidden">
+          <ItemRoulette
+            items={items}
+            setWinner={setWinner}
+          />
+        </div>
+      )}
+      <div className="bottom-0 mx-auto w-fit">
+        <div></div>
         <Button
-          disabled={isEmpty}
+          disabled={items.length < 1}
           onClick={() => {
-            if (!open) handleClick();
+            if (!chestOpen) {
+              setChestOpen(true);
+              setShowRoulette(true);
+            }
           }}
           variant="ghost"
-          className="relative h-fit cursor-pointer p-0 hover:bg-transparent focus:ring-0 focus:outline-none active:bg-transparent">
+          className="overlow-hidden relative cursor-pointer p-0 hover:bg-transparent focus:ring-0 focus:outline-none active:bg-transparent">
           <img
-            src="/shadow.png"
-            className="absolute z-0 max-h-100"
+            src={chestOpen ? "/shadow-open.png" : "/shadow-closed.png"}
+            className="absolute -z-10 max-h-100"
             alt="Shadow"
           />
 
           <motion.div
             className="relative inline-block"
-            animate={open ? { rotate: 0 } : getShakeAnimation(count, open)}
-            key={count}>
+            animate={
+              chestOpen
+                ? { rotate: 0 }
+                : getShakeAnimation(items.length, chestOpen)
+            }
+            key={items.length}>
             <img
-              src={open ? "/chest-open.png" : "/chest-closed.png"}
+              src={chestOpen ? "/chest-open-base.png" : "/chest-closed.png"}
+              alt="Treasure Chest Base"
+              className="absolute z-40 max-h-100"
+            />
+            <img
+              src={chestOpen ? "/chest-open-top.png" : "/chest-closed.png"}
               alt="Treasure Chest"
               className="max-h-100"
             />

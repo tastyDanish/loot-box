@@ -1,30 +1,29 @@
-import { Button } from "../ui/button";
+import { randomItem } from "@/lib/utils";
 import { motion } from "motion/react";
-import { useMemo, useState } from "react";
-import confetti from "canvas-confetti";
+import { useMemo } from "react";
+
+export type Winner = {
+  index: number;
+  item: string;
+};
 
 type ChooseItemProps = {
-  close: () => void;
-  remove: (index: number) => void;
+  setWinner: (winner: Winner) => void;
   items: string[];
 };
 
-function randomItem<T>(items: T[]): { item: T; index: number } {
-  const index = Math.floor(Math.random() * items.length);
-  return { item: items[index], index };
-}
+export const ItemRoulette = ({ items, setWinner }: ChooseItemProps) => {
+  const isSmall = window.matchMedia("(max-width: 640px)").matches;
 
-export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
-  const [animationDone, setAnimationDone] = useState(true);
   const targetIndex = 50;
 
   const { boxes, winner } = useMemo(() => {
-    let winner = -1;
+    let winner: Winner = { index: -1, item: "" };
 
     const boxes = Array.from({ length: 60 }, (_, i) => {
       const winningItem = randomItem(items);
       if (i === targetIndex) {
-        winner = winningItem.index;
+        winner = winningItem;
       }
       return winningItem.item;
     });
@@ -32,84 +31,64 @@ export const ItemRoulette = ({ close, remove, items }: ChooseItemProps) => {
     return { boxes, winner };
   }, [items]);
 
-  const boxWidth = 140;
+  const actualHeight = window.innerHeight - 100;
+
+  // height + padding * 2
+  const boxHeight = 80 + 8 * 2;
   const gap = 8; // Tailwind gap-2
 
-  const centerOffset =
-    (boxWidth + gap) * targetIndex -
-    window.innerWidth / 2 +
-    Math.random() * boxWidth;
-
+  const centerOffset = useMemo(
+    () =>
+      (boxHeight + gap) * targetIndex -
+      actualHeight / 2 +
+      gap +
+      Math.random() * boxHeight +
+      1,
+    [items]
+  );
   const duration = 7 + Math.random() * 3;
-  const delay = 0.1 + Math.random() * 0.1;
-
-  const baseClass =
-    "w-[140px] h-24 shrink-0 bg-orange-50  flex items-center justify-center text-xs font-bold shadow text-center rounded p-2  overflow-hidden";
-  const textClass =
-    "break-words overflow-hidden text-ellipsis whitespace-normal";
 
   return (
-    <div className="relative z-30 flex h-[500px] w-full flex-col justify-center overflow-x-hidden overflow-y-visible">
-      <div className="absolute mb-[10px] flex h-[180px] w-full flex-col bg-slate-400 shadow-md" />
-      <div className="z-10 mt-2 -mb-10 h-11 w-1 self-center bg-slate-500 shadow-md" />
+    <motion.div
+      initial={{
+        clipPath: "polygon(49% 100%, 51% 100%, 51% 100%, 49% 100%)", // tight beam base
+        opacity: 0,
+      }}
+      animate={{
+        clipPath: isSmall
+          ? "polygon(0% 0%, 100% 0%, 75% 100%, 25% 100%)" // more compact for mobile
+          : "polygon(0% 0%, 100% 0%, 70% 100%, 30% 100%)",
+        opacity: 1,
+      }}
+      transition={{
+        duration: 0.3,
+        ease: "easeInOut",
+      }}
+      className="relative z-20 flex h-[calc(100%-100px)] w-[600px] justify-center overflow-x-visible overflow-y-hidden bg-orange-300/50">
+      <div className="absolute h-full w-[350px] bg-amber-300/40 [clip-path:polygon(10%_0%,_90%_0%,_80%_100%,_20%_100%)] sm:w-[400px] sm:[clip-path:polygon(0%_0%,_100%_0%,_80%_100%,_20%_100%)]" />
+
+      <div className="z-10 -mr-10 h-10 w-20 self-center bg-slate-500 [clip-path:polygon(20%_20%,_100%_50%,_20%_80%,_0%_50%)]" />
       <motion.div
-        className="flex gap-2 py-2"
-        initial={{ x: window.innerWidth }}
-        animate={{ x: -centerOffset }}
+        className="flex flex-col gap-2 py-2"
+        initial={{ y: actualHeight }}
+        animate={{ y: -centerOffset }}
         transition={{
           duration,
           ease: [0.1, 0.1, 0, 1],
-          delay,
-        }}>
+        }}
+        onAnimationComplete={() => setWinner(winner)}>
         {boxes.map((label, i) => (
           <div
             key={i}
-            className={baseClass}>
-            <p className={textClass}>{label}</p>
+            className="flex h-24 w-48 shrink-0 items-center justify-center overflow-hidden rounded bg-orange-50 p-2 text-center text-xs font-bold shadow sm:w-64">
+            <p className="overflow-hidden break-words text-ellipsis whitespace-normal">
+              {label}
+              {/* {i} */}
+            </p>
           </div>
         ))}
       </motion.div>
-
-      <div className="clip-circle absolute z-40 h-[200px] w-full" />
-      <div className="absolute top-20 z-50 flex w-full justify-center">
-        <motion.div
-          className="flex h-70 w-96 max-w-screen shrink-0 flex-col items-center justify-center overflow-hidden rounded bg-orange-50 p-2 text-center text-xs font-bold shadow-md"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: delay + duration + 0.1 }}
-          onAnimationComplete={() => {
-            confetti({
-              particleCount: 150,
-              spread: 100,
-              origin: { y: 0.5 },
-              scalar: 1.5,
-              ticks: 150,
-            });
-            setAnimationDone(true);
-          }}>
-          <div className="flex grow flex-col justify-center">
-            <p className="overflow-hidden text-center text-3xl break-words text-ellipsis whitespace-normal">
-              {items[winner]}
-            </p>
-          </div>
-
-          <div className="flex gap-2">
-            <Button
-              disabled={!animationDone}
-              onClick={() => close()}>
-              Close
-            </Button>
-            <Button
-              disabled={!animationDone}
-              onClick={() => {
-                remove(winner);
-                close();
-              }}>
-              Remove
-            </Button>
-          </div>
-        </motion.div>
-      </div>
-    </div>
+      <div className="z-10 -ml-10 h-10 w-20 self-center bg-slate-500 [clip-path:polygon(80%_20%,_0%_50%,_80%_80%,_100%_50%)]" />
+    </motion.div>
   );
 };

@@ -9,9 +9,6 @@ import { ItemRoulette } from "./components/item-roulette";
 // import SaveLoadBar from "./components/save-load-bar";
 
 function App() {
-  const [chestOpen, setChestOpen] = useState(false);
-  const [showRoulette, setShowRoulette] = useState(false);
-
   const {
     items,
     addItem,
@@ -23,24 +20,6 @@ function App() {
     setTitle,
   } = useItems();
 
-  useEffect(() => {
-    if (chestOpen) {
-      const timeout = setTimeout(() => {
-        setShowRoulette(true);
-      }, 200);
-
-      return () => clearTimeout(timeout); // cleanup if unmounted early
-    } else {
-      setShowRoulette(false);
-    }
-  }, [chestOpen]);
-
-  useEffect(() => {
-    if (!showRoulette) {
-      setChestOpen(false);
-    }
-  }, [showRoulette]);
-
   return (
     <div className="flex max-h-screen min-h-screen w-full flex-col items-center gap-2 overflow-hidden bg-linear-to-t from-slate-500 from-0% via-slate-400 via-30% to-blue-200 to-100%">
       <section className="flex-min-w-screen absolute justify-center pt-6 text-center font-extrabold">
@@ -51,24 +30,10 @@ function App() {
         </p>
       </section>
 
-      {showRoulette && (
-        <div className="absolute -mt-10 w-full md:mt-10">
-          <ItemRoulette
-            items={items}
-            remove={removeItem}
-            close={() => {
-              setShowRoulette(false);
-            }}
-          />
-        </div>
-      )}
-
-      <div className="fixed right-0 bottom-0 left-0 flex min-w-screen justify-center pb-10">
+      <div className="fixed right-0 bottom-0 left-0 flex h-screen min-w-screen">
         <OpenBoxButton
-          open={chestOpen}
-          count={items.length}
-          isEmpty={isEmpty}
-          handleClick={() => setChestOpen(!chestOpen)}
+          items={items}
+          removeItem={removeItem}
         />
       </div>
 
