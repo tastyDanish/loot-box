@@ -1,6 +1,5 @@
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { Button } from "./ui/button";
-import { useSidebar } from "./ui/sidebar";
 
 type OpenBoxButtonProps = {
   count: number;
@@ -57,21 +56,6 @@ const OpenBoxButton = ({
 }: OpenBoxButtonProps) => {
   return (
     <div className="flex h-screen flex-col justify-center">
-      {/* <AnimatePresence mode="sync">
-        {open && (
-          <motion.div
-            key="loot-space"
-            initial={{ height: 0 }}
-            animate={{ height: 300 }}
-            exit={{
-              height: 0,
-              transition: { duration: 0.3, ease: "easeIn" },
-            }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          />
-        )}
-      </AnimatePresence> */}
-
       <div className="relative mx-auto w-fit">
         <Button
           disabled={isEmpty}
