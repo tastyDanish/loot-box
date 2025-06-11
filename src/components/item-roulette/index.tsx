@@ -14,7 +14,6 @@ type ChooseItemProps = {
 
 export const ItemRoulette = ({ items, setWinner }: ChooseItemProps) => {
   const isSmall = window.matchMedia("(max-width: 640px)").matches;
-  const isTiny = window.matchMedia("(max-width: 300px)").matches;
 
   const targetIndex = 50;
 
